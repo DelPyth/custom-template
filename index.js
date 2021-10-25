@@ -1,12 +1,30 @@
 const fs = require('fs');
 
 /**
+ * Custom variables.
+ * @typedef {Object}
+*/
+
+/**
+ * A callback to change the current line in the template.
+ * @callback templateCallback
+ * @param {Number}                        line_num              - The line number.
+ * @param {String}                        line_text             - The text of the current line.
+ * @param {customVars}                    vars                  - The custom variables you can use.
+*/
+
+/**
  * Use a template and return the result of text replaced by the `custom_vars` parameter.
- * @name createFromTemplate
  * @requires fs
  * @throws Will throw an error if `template` or `vars` is blank or if the template could not be read.
+ * @property {Object}                     options               - The options for this function to use.
+ * @property {String}                     options.template      - The template file to read from.
+ * @property {Object}                     options.output        - The result to print to, if unset, the function returns the result.
+ * @property {customVars}                 options.vars          - The custom variables to use
+ * @property {(RegExp|templateCallback)} [options.replacer]     - If regular expression, uses expression and replaces with the corresponding matched value in parentheses.
+ * @property {Boolean}                   [options.ignoreBlank]  - Whether or not to ignore blank lines if the function comes across one.
 */
-function create_from_template(options)
+module.exports = function(options)
 {
 	let template		= 'template' in options		? options.template		: null;
 	let custom_vars		= 'vars' in options			? options.vars			: null;
@@ -65,5 +83,3 @@ function create_from_template(options)
 
 	return result;
 }
-
-module.exports = create_from_template;
