@@ -1,0 +1,6 @@
+{
+	"x": {xpos},
+	"y": {ypos},
+	"w": {wide},
+	"h": {tall}
+}
